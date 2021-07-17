@@ -32,29 +32,54 @@ public class Map : MonoBehaviour
     {
         int xLineNum;
         int yLineNum;
-        splitNum--;
+        int subSplitNum = splitNum + 1;
         if (splitNum == 0) return;
-        if (maxX - minX > _minRoomSpritNum || maxY - minY > _minRoomSpritNum)
+        while (splitNum > 0)
         {
-            if (maxX - minX >= maxY - minY)
+            if (maxX - minX > _minRoomSpritNum * 2 || maxY - minY > _minRoomSpritNum * 2)
             {
-                xLineNum = (maxX - minX) / 2;
-                SetID(minX, minY, xLineNum - 1, maxY, cells, 1);
+                if (maxX - minX >= maxY - minY)
+                {
+                    xLineNum = (maxX - minX) / 2 + minX;
+                    SetID(minX, minY, xLineNum, maxY, cells, subSplitNum - splitNum);
+                    if(maxX - xLineNum >= xLineNum - minX)
+                    {
+
+                        minX = xLineNum;
+                    }
+                    else
+                    {
+                        maxX = xLineNum;
+                    }
+                }
+                else
+                {
+                    yLineNum = (maxY - minY) / 2 + minY;
+                    SetID(minX, minY, maxY, yLineNum, cells, subSplitNum - splitNum);
+                    if (maxY - yLineNum >= yLineNum - minY)
+                    {
+                        minY = yLineNum;
+                    }
+                    else
+                    {
+                        maxY = yLineNum;
+                    }
+                }
+                splitNum--;
             }
             else
             {
-                yLineNum = (maxY - minY) / 2;
-                SetID(minX, minY, maxY, yLineNum - 1, cells, 1);
+                break;
             }
         }
     }
     public void SetID(int minX, int minY, int maxX, int maxY, Cell[,] soruceCells, int id)
     {
-        for (int y = 0; y < maxY - minY; y++)
+        for (int y = minY; y < maxY; y++)
         {
-            for (int x = 0; x < maxX - minX; x++)
+            for (int x = minX; x < maxX; x++)
             {
-                soruceCells[x, y].RoomId = id;
+                soruceCells[x,y].RoomId = id;
             }
         }
     }

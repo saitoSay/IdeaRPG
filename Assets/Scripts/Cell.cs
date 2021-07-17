@@ -18,7 +18,35 @@ public class Cell : MonoBehaviour
     public int RoomId
     { 
         get { return _roomId; }
-        set { _roomId = value; }
+        //set { _roomId = value; }
+        set
+        {
+            _roomId = value;
+            if (_roomId == 0)
+            {
+                _spriteRenderer.color = Color.white;
+            }
+            else if (_roomId == 1)
+            {
+                _spriteRenderer.color = Color.red;
+            }
+            else if (_roomId == 2)
+            {
+                _spriteRenderer.color = Color.blue;
+            }
+            else if(_roomId == 3)
+            {
+                _spriteRenderer.color = Color.green;
+            }
+            else if (_roomId == 4)
+            {
+                _spriteRenderer.color = Color.gray;
+            }
+            else
+            {
+                _spriteRenderer.color = Color.cyan;
+            }
+        }
     }
     public MapStates MapState
     {
@@ -45,7 +73,6 @@ public class Cell : MonoBehaviour
     }
     private void OnCellStateChanged()
     {
-        
         if (_mapState == MapStates.Floor)
         {
             _spriteRenderer.sprite = _sprites[1];

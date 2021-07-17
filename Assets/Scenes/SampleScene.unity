@@ -237,7 +237,7 @@ MonoBehaviour:
     type: 3}
   _mapMaxX: 20
   _mapMaxY: 20
-  _splitNum: 2
+  _splitNum: 5
 --- !u!224 &2100800077
 RectTransform:
   m_ObjectHideFlags: 0
