@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class Map : MonoBehaviour
 {
     [SerializeField] Cell cellPefab;
-    int _mapMinX;
-    int _mapMinY;
+    int _mapMinX = 0;
+    int _mapMinY = 0;
     [SerializeField] int _mapMaxX = 20;
     [SerializeField] int _mapMaxY = 20;
     const int _minRoomSpritNum = 4;
@@ -21,7 +21,7 @@ public class Map : MonoBehaviour
             for (int x = 0; x < _mapMaxY; x++)
             {
                 var cell = Instantiate(cellPefab, this.transform);
-                cell.MapState = MapStates.Floor;
+                cell.MapState = MapStates.Wall;
                 _cells[x, y] = cell;
                 _cells[x, y].transform.position = new Vector3(x * 1.5f, y * 1.5f);
             }
@@ -70,6 +70,13 @@ public class Map : MonoBehaviour
             else
             {
                 break;
+            }
+        }
+        foreach (var item in cells)
+        {
+            if (item.RoomId == 0)
+            {
+                item.RoomId = subSplitNum - splitNum;
             }
         }
     }
