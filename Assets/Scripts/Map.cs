@@ -45,14 +45,15 @@ public class Map : MonoBehaviour
                     if(maxX - xLineNum >= xLineNum - minX)
                     {
                         SetID(minX, minY, xLineNum, maxY, cells, subSplitNum - splitNum);
+                        CreateRoom(minX, minY, maxX, maxY, cells);
                         minX = xLineNum;
                     }
                     else
                     {
                         SetID(xLineNum, minY, maxX, maxY, cells, subSplitNum - splitNum);
+                        CreateRoom(minX, minY, maxX, maxY, cells);
                         maxX = xLineNum;
                     }
-                    CreateRoom(minX, minY, maxX, maxY, cells);
                 }
                 else
                 {
@@ -60,14 +61,15 @@ public class Map : MonoBehaviour
                     if (maxY - yLineNum >= yLineNum - minY)
                     {
                         SetID(minX, minY, maxX, yLineNum, cells, subSplitNum - splitNum);
+                        CreateRoom(minX, minY, maxX, maxY, cells);
                         minY = yLineNum;
                     }
                     else
                     {
                         SetID(minX, yLineNum, maxX, maxY, cells, subSplitNum - splitNum);
+                        CreateRoom(minX, minY, maxX, maxY, cells);
                         maxY = yLineNum;
                     }
-                    CreateRoom(minX, minY, maxX, maxY, cells);
                 }
                 splitNum--;
             }
@@ -86,7 +88,10 @@ public class Map : MonoBehaviour
     }
     public void CreateRoom(int minX, int minY, int maxX, int maxY, Cell[,] soruceCells)
     {
-
+        if (maxX - minX < _minRoomSpritNum || maxY - minY < _minRoomSpritNum)
+        {
+            return;
+        }
     }
     public void SetID(int minX, int minY, int maxX, int maxY, Cell[,] soruceCells, int id)
     {
