@@ -235,9 +235,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellPefab: {fileID: 8555152085939550221, guid: 810a85e3559b7c840a147d586a9f33a7,
     type: 3}
-  _mapMaxX: 40
+  _mapMaxX: 35
   _mapMaxY: 20
-  _splitNum: 5
+  _splitNum: 6
 --- !u!224 &2100800077
 RectTransform:
   m_ObjectHideFlags: 0
