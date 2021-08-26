@@ -18,7 +18,7 @@ public class Map : MonoBehaviour
         _cells = new Cell[_mapMaxX, _mapMaxY];
         for (int y = 0; y < _mapMaxY; y++)
         {
-            for (int x = 0; x < _mapMaxY; x++)
+            for (int x = 0; x < _mapMaxX; x++)
             {
                 var cell = Instantiate(cellPefab, this.transform);
                 cell.MapState = MapStates.Wall;
@@ -38,14 +38,13 @@ public class Map : MonoBehaviour
         {
             if (maxX - minX > _minRoomSpritNum * 2 || maxY - minY > _minRoomSpritNum * 2)
             {
-                int rand = Random.Range(-1, 2);
+                int rand = Random.Range(-2, 3);
                 if (maxX - minX >= maxY - minY)
                 {
                     xLineNum = (maxX - minX) / 2 + minX + rand;
                     SetID(minX, minY, xLineNum, maxY, cells, subSplitNum - splitNum);
                     if(maxX - xLineNum >= xLineNum - minX)
                     {
-
                         minX = xLineNum;
                     }
                     else
@@ -80,6 +79,10 @@ public class Map : MonoBehaviour
                 item.RoomId = subSplitNum - splitNum;
             }
         }
+    }
+    public void CreateRoom(int minX, int minY, int maxX, int maxY, Cell[,] soruceCells)
+    {
+
     }
     public void SetID(int minX, int minY, int maxX, int maxY, Cell[,] soruceCells, int id)
     {
