@@ -42,9 +42,13 @@ public class Cell : MonoBehaviour
             {
                 _spriteRenderer.color = Color.gray;
             }
-            else
+            else if(_roomId == 5)
             {
                 _spriteRenderer.color = Color.cyan;
+            }
+            else
+            {
+                _spriteRenderer.color = Color.yellow;
             }
         }
     }
