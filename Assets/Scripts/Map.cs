@@ -44,13 +44,14 @@ public class Map : MonoBehaviour
                     xLineNum = (maxX - minX) / 2 + minX + rand;
                     if(maxX - xLineNum >= xLineNum - minX)
                     {
+                        SetID(minX, minY, xLineNum, maxY, cells, subSplitNum - splitNum);
                         minX = xLineNum;
                     }
                     else
                     {
+                        SetID(xLineNum, minY, maxX, maxY, cells, subSplitNum - splitNum);
                         maxX = xLineNum;
                     }
-                    SetID(minX, minY, maxX, maxY, cells, subSplitNum - splitNum);
                     CreateRoom(minX, minY, maxX, maxY, cells);
                 }
                 else
@@ -58,13 +59,14 @@ public class Map : MonoBehaviour
                     yLineNum = (maxY - minY) / 2 + minY + rand;
                     if (maxY - yLineNum >= yLineNum - minY)
                     {
+                        SetID(minX, minY, maxX, yLineNum, cells, subSplitNum - splitNum);
                         minY = yLineNum;
                     }
                     else
                     {
+                        SetID(minX, yLineNum, maxX, maxY, cells, subSplitNum - splitNum);
                         maxY = yLineNum;
                     }
-                    SetID(minX, minY, maxX, maxY, cells, subSplitNum - splitNum);
                     CreateRoom(minX, minY, maxX, maxY, cells);
                 }
                 splitNum--;
