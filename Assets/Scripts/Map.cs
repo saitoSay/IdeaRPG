@@ -38,9 +38,10 @@ public class Map : MonoBehaviour
         {
             if (maxX - minX > _minRoomSpritNum * 2 || maxY - minY > _minRoomSpritNum * 2)
             {
+                int rand = Random.Range(-1, 2);
                 if (maxX - minX >= maxY - minY)
                 {
-                    xLineNum = (maxX - minX) / 2 + minX;
+                    xLineNum = (maxX - minX) / 2 + minX + rand;
                     SetID(minX, minY, xLineNum, maxY, cells, subSplitNum - splitNum);
                     if(maxX - xLineNum >= xLineNum - minX)
                     {
@@ -54,7 +55,7 @@ public class Map : MonoBehaviour
                 }
                 else
                 {
-                    yLineNum = (maxY - minY) / 2 + minY;
+                    yLineNum = (maxY - minY) / 2 + minY + rand;
                     SetID(minX, minY, maxY, yLineNum, cells, subSplitNum - splitNum);
                     if (maxY - yLineNum >= yLineNum - minY)
                     {
