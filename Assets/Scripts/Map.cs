@@ -45,13 +45,13 @@ public class Map : MonoBehaviour
                     if(maxX - xLineNum >= xLineNum - minX)
                     {
                         SetID(minX, minY, xLineNum, maxY, cells, subSplitNum - splitNum);
-                        CreateRoom(minX, minY, maxX, maxY, cells);
+                        CreateRoom(minX, minY, xLineNum, maxY, cells);
                         minX = xLineNum;
                     }
                     else
                     {
                         SetID(xLineNum, minY, maxX, maxY, cells, subSplitNum - splitNum);
-                        CreateRoom(minX, minY, maxX, maxY, cells);
+                        CreateRoom(xLineNum, minY, maxX, maxY, cells);
                         maxX = xLineNum;
                     }
                 }
@@ -61,13 +61,13 @@ public class Map : MonoBehaviour
                     if (maxY - yLineNum >= yLineNum - minY)
                     {
                         SetID(minX, minY, maxX, yLineNum, cells, subSplitNum - splitNum);
-                        CreateRoom(minX, minY, maxX, maxY, cells);
+                        CreateRoom(minX, minY, maxX, yLineNum, cells);
                         minY = yLineNum;
                     }
                     else
                     {
                         SetID(minX, yLineNum, maxX, maxY, cells, subSplitNum - splitNum);
-                        CreateRoom(minX, minY, maxX, maxY, cells);
+                        CreateRoom(minX, yLineNum, maxX, maxY, cells);
                         maxY = yLineNum;
                     }
                 }
@@ -78,6 +78,8 @@ public class Map : MonoBehaviour
                 break;
             }
         }
+        //TODO この処理で分割しきれなかったCellにIDを振ると、
+        //部屋を作る際に座標を取ってくるのが大変なので分割中に処理したい
         foreach (var item in cells)
         {
             if (item.RoomId == 0)
@@ -86,12 +88,29 @@ public class Map : MonoBehaviour
             }
         }
     }
-    public void CreateRoom(int minX, int minY, int maxX, int maxY, Cell[,] soruceCells)
+    public void CreateRoom(int minX, int minY, int maxX, int maxY, Cell[,] cells)
     {
-        if (maxX - minX < _minRoomSpritNum || maxY - minY < _minRoomSpritNum)
+        int xMinRand = Random.Range(minX + 1, maxX - minX / 2);
+        int xMaxRand = Random.Range(maxX - minX / 2, maxX - 1);
+
+        int yMinRand = Random.Range(minY + 1, maxY - minY / 2); 
+        int yMaxRand = Random.Range(maxY - minY / 2, maxY - 1);
+
+        //for (int y = yMinRand; y < yMaxRand; y++)
+        //{
+        //    for (int x = xMinRand; x < xMaxRand; x++)
+        //    {
+        //        cells[x, y].MapState = MapStates.Floor;
+        //    }
+        //}
+        for (int y = minY + 1; y < maxY - 1 ; y++)
         {
-            return;
+            for (int x = minX + 1; x < maxX - 1; x++)
+            {
+                cells[x, y].MapState = MapStates.Floor;
+            }
         }
+
     }
     public void SetID(int minX, int minY, int maxX, int maxY, Cell[,] soruceCells, int id)
     {

@@ -13,7 +13,7 @@ public class Cell : MonoBehaviour
     [SerializeField] SpriteRenderer _spriteRenderer;
     [SerializeField] Sprite[] _sprites;
     CellPosition _pos;
-    MapStates _mapState;
+    [SerializeField] MapStates _mapState;
     [SerializeField] int _roomId = 0;
     public int RoomId
     { 
