@@ -46,13 +46,13 @@ public class Map : MonoBehaviour
                     {
                         SetID(minX, minY, xLineNum, maxY, cells, subSplitNum - splitNum);
                         CreateRoom(minX, minY, xLineNum, maxY, cells);
-                        minX = xLineNum;
+                        minX = xLineNum + 1;
                     }
                     else
                     {
                         SetID(xLineNum, minY, maxX, maxY, cells, subSplitNum - splitNum);
                         CreateRoom(xLineNum, minY, maxX, maxY, cells);
-                        maxX = xLineNum;
+                        maxX = xLineNum - 1;
                     }
                 }
                 else
@@ -62,13 +62,13 @@ public class Map : MonoBehaviour
                     {
                         SetID(minX, minY, maxX, yLineNum, cells, subSplitNum - splitNum);
                         CreateRoom(minX, minY, maxX, yLineNum, cells);
-                        minY = yLineNum;
+                        minY = yLineNum + 1;
                     }
                     else
                     {
                         SetID(minX, yLineNum, maxX, maxY, cells, subSplitNum - splitNum);
                         CreateRoom(minX, yLineNum, maxX, maxY, cells);
-                        maxY = yLineNum;
+                        maxY = yLineNum - 1;
                     }
                 }
                 splitNum--;
