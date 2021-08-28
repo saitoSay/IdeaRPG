@@ -75,16 +75,9 @@ public class Map : MonoBehaviour
             }
             else
             {
+                SetID(minX, minY, maxX, maxY, cells, subSplitNum - splitNum);
+                CreateRoom(minX, minY, maxX, maxY, cells);
                 break;
-            }
-        }
-        //TODO この処理で分割しきれなかったCellにIDを振ると、
-        //部屋を作る際に座標を取ってくるのが大変なので分割中に処理したい
-        foreach (var item in cells)
-        {
-            if (item.RoomId == 0)
-            {
-                item.RoomId = subSplitNum - splitNum;
             }
         }
     }
