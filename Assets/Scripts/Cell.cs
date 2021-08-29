@@ -15,6 +15,7 @@ public class Cell : MonoBehaviour
     CellPosition _pos;
     [SerializeField] MapStates _mapState;
     [SerializeField] int _roomId = 0;
+    public bool Intersection { get; set; }
     public int RoomId
     { 
         get { return _roomId; }
@@ -70,6 +71,7 @@ public class Cell : MonoBehaviour
         _pos.x = x;
         _pos.y = y;
         _mapState = MapStates.Start;
+        Intersection = false;
     }
     private void Start()
     {
