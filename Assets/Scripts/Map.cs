@@ -105,18 +105,23 @@ public class Map : MonoBehaviour
         }
 
     }
-    public void SetID(int minX, int minY, int maxX, int maxY, Cell[,] soruceCells, int id)
+    public void SetID(int minX, int minY, int maxX, int maxY, Cell[,] cells, int id)
     {
         for (int y = minY; y < maxY; y++)
         {
             for (int x = minX; x < maxX; x++)
             {
-                soruceCells[x,y].RoomId = id;
+                cells[x,y].RoomId = id;
             }
         }
     }
-    public void CreateRoad()
+    /// <summary>部屋から道を伸ばす関数</summary>
+    /// <param name="minX">伸ばす元の部屋の最小のxPos</param>
+    /// <param name="minY">伸ばす元の部屋の最小のyPos</param>
+    /// <param name="maxX">伸ばす元の部屋の最大のxPos</param>
+    /// <param name="maxY">伸ばす元の部屋の最大のyPos</param>
+    public void CreateRoad(int minX, int minY, int maxX, int maxY, Cell[,] cells)
     {
-
+        //ベクトルが必要かどうか
     }
 }
