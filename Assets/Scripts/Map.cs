@@ -13,8 +13,10 @@ public class Map : MonoBehaviour
     const int _minRoomSpritNum = 4;
     [SerializeField] int _splitNum = 0;
     Cell[,] _cells = null;
+    List<Room> _rooms;
     private void Start()
     {
+        _rooms = new List<Room>();
         _cells = new Cell[_mapMaxX, _mapMaxY];
         for (int y = 0; y < _mapMaxY; y++)
         {
@@ -27,6 +29,7 @@ public class Map : MonoBehaviour
             }
         }
         SplitRoom(_mapMinX, _mapMinY, _mapMaxX, _mapMaxY, _splitNum, _cells);
+        CreateRoad(_rooms);
     }
     public void SplitRoom(int minX, int minY, int maxX, int maxY, int splitNum, Cell[,] cells)
     {
@@ -47,7 +50,6 @@ public class Map : MonoBehaviour
                         //分割した左半分に部屋を作る
                         SetID(minX, minY, xLineNum, maxY, cells, subSplitNum - splitNum);
                         CreateRoom(minX, minY, xLineNum, maxY, cells);
-                        CreateRoad(minX, minY, xLineNum, maxY, cells,Vector2.right);
                         minX = xLineNum + 1;
                     }
                     else
@@ -55,7 +57,6 @@ public class Map : MonoBehaviour
                         //分割した右半分に部屋を作る
                         SetID(xLineNum, minY, maxX, maxY, cells, subSplitNum - splitNum);
                         CreateRoom(xLineNum, minY, maxX, maxY, cells);
-                        CreateRoad(xLineNum, minY, maxX, maxY, cells, Vector2.left);
                         maxX = xLineNum - 1;
                     }
                 }
@@ -67,7 +68,6 @@ public class Map : MonoBehaviour
                         //分割した下半分に部屋を作る
                         SetID(minX, minY, maxX, yLineNum, cells, subSplitNum - splitNum);
                         CreateRoom(minX, minY, maxX, yLineNum, cells);
-                        CreateRoad(minX, minY, maxX, yLineNum, cells, Vector2.up);
                         minY = yLineNum + 1;
                     }
                     else
@@ -75,7 +75,6 @@ public class Map : MonoBehaviour
                         //分割した上半分に部屋を作る
                         SetID(minX, yLineNum, maxX, maxY, cells, subSplitNum - splitNum);
                         CreateRoom(minX, yLineNum, maxX, maxY, cells);
-                        CreateRoad(minX, yLineNum, maxX, maxY, cells, Vector2.down);
                         maxY = yLineNum - 1;
                     }
                 }
@@ -112,7 +111,7 @@ public class Map : MonoBehaviour
                 cells[x, y].MapState = MapStates.Floor;
             }
         }
-
+        _rooms.Add(new Room(minX, minY, maxX, maxY));
     }
     public void SetID(int minX, int minY, int maxX, int maxY, Cell[,] cells, int id)
     {
@@ -124,61 +123,8 @@ public class Map : MonoBehaviour
             }
         }
     }
-    /// <summary>部屋から道を伸ばす関数</summary>
-    /// <param name="minX">伸ばす元の部屋の最小のxPos</param>
-    /// <param name="minY">伸ばす元の部屋の最小のyPos</param>
-    /// <param name="maxX">伸ばす元の部屋の最大のxPos</param>
-    /// <param name="maxY">伸ばす元の部屋の最大のyPos</param>
-    /// /// <param name="maxY">道を伸ばす方向</param>
-    public void CreateRoad(int minX, int minY, int maxX, int maxY, Cell[,] cells, Vector2 vec)
+    public void CreateRoad(List<Room> rooms)
     {
-        if (vec == Vector2.up)
-        {
-            int x = Random.Range(minX + 1, maxX);
-            int y = maxY - 1;
-            while (cells[x, y].RoomId != 0)
-            {
-                cells[x, y].MapState = MapStates.Floor;
-                y++;
-            }
-            cells[x, y].MapState = MapStates.Floor;
-            cells[x, y].Intersection = true;
-        }
-        else if (vec == Vector2.down)
-        {
-            int x = Random.Range(minX + 1, maxX);
-            int y = minY;
-            while (cells[x, y].RoomId != 0)
-            {
-                cells[x, y].MapState = MapStates.Floor;
-                y--;
-            }
-            cells[x, y].MapState = MapStates.Floor;
-            cells[x, y].Intersection = true;
-        }
-        else if (vec == Vector2.right)
-        {
-            int x = maxX - 1;
-            int y = Random.Range(minY + 1, maxY);
-            while (cells[x, y].RoomId != 0)
-            {
-                cells[x, y].MapState = MapStates.Floor;
-                x++;
-            }
-            cells[x, y].MapState = MapStates.Floor;
-            cells[x, y].Intersection = true;
-        }
-        else if (vec == Vector2.left)
-        {
-            int x = minX;
-            int y = Random.Range(minY + 1, maxY);
-            while (cells[x, y].RoomId != 0)
-            {
-                cells[x, y].MapState = MapStates.Floor;
-                x--;
-            }
-            cells[x, y].MapState = MapStates.Floor;
-            cells[x, y].Intersection = true;
-        }
+
     }
 }

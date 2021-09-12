@@ -93,3 +93,17 @@ public class Cell : MonoBehaviour
         }
     }
 }
+public class Room
+{
+    int MinX { get; set; }
+    int MinY { get; set; }
+    int MaxX { get; set; }
+    int MaxY { get; set; }
+    public Room(int minX, int minY, int maxX,  int maxY)
+    {
+        MinX = minX;
+        MaxX = maxX;
+        MinY = minY;
+        MaxY = maxY;
+    }
+}
